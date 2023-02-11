@@ -1,24 +1,29 @@
 #include <iostream>
 #include <vector>
-using namespace std;
+#include <unistd.h>
 
 int main(void)
 {
-  int max = 1000, buff = 3;
-  vector<int> primes = {2};
-  // scanf("%d", &max);
-  printf("2 ");
-  for (; buff < max; buff++)
+  int max = 1000, current = 3;
+  std::vector<int> primes = {2};
+  // std::cout << "input max:";
+  // std::cin >> max;
+  std::cout << "2\n";
+  while (current <= max)
   {
-    for (int i = 0; i < primes.size(); i++)
+    bool flag = true;
+    for (int prime : primes)
+      if (!(current % prime))
+      {
+        flag = false;
+        break;
+      }
+    if (flag)
     {
-      if (buff % primes[i] == 0)
-        goto SKIP;
+      primes.push_back(current);
+      std::cout << current << "\n";
+      sleep(1);
     }
-    primes.push_back(buff);
-    printf("%d ", buff);
-  SKIP:
-    printf("");
+    current++;
   }
-  printf("\n");
 }
